@@ -3,7 +3,9 @@
 An Xposed/LSPosed module that replaces the **Google Camera** shutter sound with
 your own audio clip.
 
-**[⬇ Download the latest APK](https://github.com/vitalto/gcam-shutter-sound/releases/latest)**
+[![Release](https://img.shields.io/github/v/release/vitalto/gcam-shutter-sound?label=download)](https://github.com/vitalto/gcam-shutter-sound/releases/latest)
+[![Build](https://github.com/vitalto/gcam-shutter-sound/actions/workflows/build.yml/badge.svg)](https://github.com/vitalto/gcam-shutter-sound/actions/workflows/build.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Google Camera plays its shutter through `SoundPool`, loading the bundled
 resource `R.raw.camera_shutter`. This module hooks `SoundPool.load(...)` inside
@@ -56,13 +58,6 @@ export ANDROID_SDK=/path/to/Android/Sdk
 bash tools/build.sh
 # -> build/GCamCustomShutter.apk  (signed with a throwaway key)
 ```
-
-## Notes
-
-- Xposed frameworks do not verify the APK signature, so a debug/throwaway key is
-  fine.
-- If GCam updates and renames the resource, update `SHUTTER_SUFFIX` in
-  `ShutterSoundHook.java`.
 
 ## License
 
