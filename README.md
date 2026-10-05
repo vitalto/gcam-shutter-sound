@@ -33,7 +33,7 @@ vector-cli scope set com.roottools.shuttersound com.google.android.GoogleCamera/
 Replace `app/src/main/assets/custom_shutter.ogg` with your clip (keep the file
 name) and rebuild. `SoundPool` detects the format from content, so `.ogg`,
 `.mp3` or `.wav` all work under that name — `.ogg` is recommended for a short,
-latency-free click. The repo ships a synthesized placeholder click.
+latency-free click.
 
 ## Build
 
@@ -63,5 +63,4 @@ bash tools/build.sh
 
 ## License
 
-MIT — see [LICENSE](LICENSE). The bundled placeholder click is generated and
-released into the public domain.
+MIT — see [LICENSE](LICENSE).
