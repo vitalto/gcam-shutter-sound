@@ -29,8 +29,8 @@ instead and returns its sample id, so GCam's own `play()` emits your sound.
 ### Enable from the command line (LSPosed/Vector CLI)
 
 ```sh
-vector-cli modules enable com.roottools.shuttersound
-vector-cli scope set com.roottools.shuttersound com.google.android.GoogleCamera/0
+vector-cli modules enable io.github.vitalto.gcamshutter
+vector-cli scope set io.github.vitalto.gcamshutter com.google.android.GoogleCamera/0
 ```
 
 ## Use your own sound

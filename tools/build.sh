@@ -35,6 +35,8 @@ JAVAC="${JAVAC:-javac}"
 # On MSYS/Cygwin (Windows) the SDK .bat/.exe wrappers need native paths; cygpath
 # converts them. On Linux/macOS cygpath is absent and paths pass through as-is.
 wp() { if command -v cygpath >/dev/null 2>&1; then cygpath -w "$1"; else echo "$1"; fi; }
+# classpath separator: ';' for a Windows JDK (MSYS/Cygwin), ':' elsewhere
+sep() { if command -v cygpath >/dev/null 2>&1; then echo ';'; else echo ':'; fi; }
 
 KEYSTORE="${KEYSTORE:-$ROOT/tools/debug.keystore}"
 if [ ! -f "$KEYSTORE" ]; then
@@ -44,13 +46,18 @@ if [ ! -f "$KEYSTORE" ]; then
 fi
 
 echo ">> compiling Java"
-rm -rf "$OUT/classes" "$OUT/dex"; mkdir -p "$OUT/classes" "$OUT/dex"
-"$JAVAC" -source 17 -target 17 -cp "$AJ" -d "$OUT/classes" \
-  $(find tools/stub app/src/main/java -name '*.java') 2>&1 | grep -v "system modules" || true
+rm -rf "$OUT/classes" "$OUT/stubclasses" "$OUT/dex"
+mkdir -p "$OUT/classes" "$OUT/stubclasses" "$OUT/dex"
+# Xposed API stubs compile to their own dir so they stay out of the packaged dex.
+"$JAVAC" -source 17 -target 17 -cp "$(wp "$AJ")" -d "$(wp "$OUT/stubclasses")" \
+  $(find tools/stub -name '*.java') 2>&1 | grep -v "system modules" || true
+"$JAVAC" -source 17 -target 17 -cp "$(wp "$AJ")$(sep)$(wp "$OUT/stubclasses")" -d "$(wp "$OUT/classes")" \
+  $(find app/src/main/java -name '*.java') 2>&1 | grep -v "system modules" || true
 
 echo ">> dexing (module classes only)"
-"${JAR:-jar}" cf "$OUT/module.jar" -C "$OUT/classes" com
-"$D8" --min-api 24 --lib "$(wp "$AJ")" --output "$(wp "$OUT/dex")" "$(wp "$OUT/module.jar")"
+"${JAR:-jar}" cf "$OUT/module.jar" -C "$OUT/classes" .
+"$D8" --min-api 24 --lib "$(wp "$AJ")" --classpath "$(wp "$OUT/stubclasses")" \
+  --output "$(wp "$OUT/dex")" "$(wp "$OUT/module.jar")"
 
 echo ">> linking resources + manifest + assets"
 "$AAPT2" compile --dir "$(wp app/src/main/res)" -o "$(wp "$OUT/res.zip")"

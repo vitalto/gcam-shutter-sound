@@ -1,4 +1,4 @@
-package com.roottools.shuttersound;
+package io.github.vitalto.gcamshutter;
 
 import android.content.Context;
 import android.media.SoundPool;
