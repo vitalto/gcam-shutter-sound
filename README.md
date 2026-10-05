@@ -3,6 +3,8 @@
 An Xposed/LSPosed module that replaces the **Google Camera** shutter sound with
 your own audio clip.
 
+**[⬇ Download the latest APK](https://github.com/vitalto/gcam-shutter-sound/releases/latest)**
+
 Google Camera plays its shutter through `SoundPool`, loading the bundled
 resource `R.raw.camera_shutter`. This module hooks `SoundPool.load(...)` inside
 the GCam process: when GCam loads that resource, the module loads your clip
@@ -16,7 +18,8 @@ instead and returns its sample id, so GCam's own `play()` emits your sound.
 
 ## Install
 
-1. Build or download the APK (see below) and install it.
+1. Download the APK from [Releases](https://github.com/vitalto/gcam-shutter-sound/releases/latest)
+   (or build it, see below) and install it.
 2. In your Xposed manager, **enable the module** and set its **scope** to
    Google Camera.
 3. Force-stop and reopen Google Camera, then take a photo.
