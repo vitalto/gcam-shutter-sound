@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- LSPosed/Vector reads this to pre-select the scope: only Google Camera. -->
+    <string-array name="xposedscope">
+        <item>com.google.android.GoogleCamera</item>
+    </string-array>
+</resources>
