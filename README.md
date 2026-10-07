@@ -7,6 +7,8 @@ your own audio clip.
 [![Build](https://github.com/vitalto/gcam-shutter-sound/actions/workflows/build.yml/badge.svg)](https://github.com/vitalto/gcam-shutter-sound/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+**Source code:** https://github.com/vitalto/gcam-shutter-sound
+
 Google Camera plays its shutter through `SoundPool`, loading the bundled
 resource `R.raw.camera_shutter`. This module hooks `SoundPool.load(...)` inside
 the GCam process: when GCam loads that resource, the module loads your clip
